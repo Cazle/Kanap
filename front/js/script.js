@@ -21,6 +21,7 @@ fetch("http://localhost:3000/api/products")
         }
     })
     
+    
     // on affiche un message d'erreur en cas de problème
     .catch( function(err) {
         let error = document.querySelector("main");
