@@ -12,16 +12,21 @@ fetch(`http://localhost:3000/api/products/${id}`)
     // on alimente la vue
     .then (productId => {
         document.querySelector('.item__img').innerHTML = `<img src="${productId.imageUrl}" alt="${productId.altTxt}">`;
-        document.getElementById('title').innerHTML = `<h1 id="title">${productId.name}</h1>`
-        document.getElementById('price').innerHTML =`${productId.price}`
-        document.getElementById('description').innerHTML =`${productId.description}`
-         
-            }
-        )
-    
+        document.getElementById('title').innerHTML = `<h1 id="title">${productId.name}</h1>`;
+        document.getElementById('price').innerHTML =`${productId.price}`;
+        document.getElementById('description').innerHTML =`${productId.description}`;
+        for (i in productId.colors){
+            document.getElementById('colors').innerHTML += `<option value=>${productId.colors[i]}</option>`;
+        }
+
+        
+    })
+
       
     // on affiche un message d'erreur en cas de problème
     .catch( function(err) {
         let error = document.querySelector("main");
-        error.innerHTML = `<h2 style="color:red;">Une erreur est survenue !</h2>`
-    })
+        error.innerHTML = `<h2 style="color:red;">Une erreur est survenue !</h2>`;
+    });
+     
+    
