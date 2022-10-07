@@ -18,10 +18,25 @@ fetch(`http://localhost:3000/api/products/${id}`)
         for (i in productId.colors){
             document.getElementById('colors').innerHTML += `<option value=>${productId.colors[i]}</option>`;
         }
-
+        document.getElementById('addToCart').addEventListener('click', function(e){
+            e.preventDefault();
+            if(productId.colors != true ) {
+                alert(`Vous avez choisi la couleur`)
+            }
+            else{
+                productId.colors = false
+                alert("Vous n'avez pas choisi de couleur")
+            }
+        })
+        document.getElementById('quantity').addEventListener('click', function(e){
+            e.preventDefault();
+            if('quantity' < 1){
+                alert('Vous avez choisi 5 canapé')
+            }
+        })
         
     })
-
+    
       
     // on affiche un message d'erreur en cas de problème
     .catch( function(err) {
