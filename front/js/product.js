@@ -24,6 +24,20 @@ let product = { _id : id}
 
 let colorChoice = document.getElementById('colors')
 
+colorChoice = addEventListener("input", function(event){
+    let colorOfProduct = event.target.value;
+    product.color = colorOfProduct;
+    
+})
+
+let quantityChoice = document.getElementById('quantity')
+
+quantityChoice = addEventListener('input', function(event){
+    let quantityOfProduct = event.target.value;
+    product.quantity = quantityOfProduct;
+
+})
+
 
 
 
