@@ -38,6 +38,16 @@ quantityChoice = addEventListener('input', function(event){
 
 })
 
+let saveInCart = JSON.parse(localStorage.getItem("produit"))
+
+if (saveInCart){
+    saveInCart.push(colorOfProduct, quantityOfProduct);
+    localStorage.setItem("produit", JSON.stringify(saveInCart))
+}
+else(saveInCart) => {
+    saveInCart = []
+}
+
 
 
 
