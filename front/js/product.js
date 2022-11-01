@@ -1,8 +1,8 @@
-// on va récupérer l'url de notre page
+
 const urlId = window.location.search;
-// on utilise URLsearchParams pour récupérer l'id
+
 const UrlsearchParams = new URLSearchParams(urlId);
-// on récupère la valeur de l'id
+
 const id = UrlsearchParams.get('id');
 
 
@@ -28,25 +28,70 @@ colorChoice = addEventListener("input", function(event){
     let colorOfProduct = event.target.value;
     product.color = colorOfProduct;
     
+    
 })
 
 let quantityChoice = document.getElementById('quantity')
 
 quantityChoice = addEventListener('input', function(event){
     let quantityOfProduct = event.target.value;
-    product.quantity = quantityOfProduct;
+    product.quantity = parseInt (quantityOfProduct);
+    console.log(quantityOfProduct)
 
 })
 
-let saveInCart = JSON.parse(localStorage.getItem("produit"))
+/*Local Storage */
 
-if (saveInCart){
-    saveInCart.push(colorOfProduct, quantityOfProduct);
-    localStorage.setItem("produit", JSON.stringify(saveInCart))
+function saveCart(cart){
+    localStorage.setItem("cart", JSON.stringify(cart));
 }
-else(saveInCart) => {
-    saveInCart = []
+
+function getCart(){
+    let cart = [];
+    cart = localStorage.getItem("cart");
+    if (cart == null){
+        return [];
+
+    }
+    else{
+        return JSON.parse(cart);
+    }
 }
+
+function addCart(product){
+    let cart = getCart();
+    let foundProduct = cart.find(p => p._id == product._id && p.colors == product.colors);
+    if (foundProduct != undefined){
+        let newQuantity = foundProduct.quantity + product.quantity;
+        foundProduct.quantity = newQuantity;
+
+        if (foundProduct.quantity > 100){
+            let oldQuantity = foundProduct.quantity - product.quantity;
+            foundProduct.quantity = oldQuantity;
+            alert(`Le maximum est de 100. Vous avez déjà ${oldQuantity}`);
+        }
+    }
+
+    else{
+            cart.push(product);
+            
+    }
+    saveCart(cart); 
+}
+const addToCart = document.getElementById("addToCart")
+
+addToCart.addEventListener("click", () => {
+    if(product.quantity > 0 && product.quantity <= 100 && product.colors !== "" && product.colors !== undefined){
+        addCart(product);
+        console.log(addToCart)
+
+    }
+    else{
+        alert("Ta mère")
+    }
+});
+
+
 
 
 
