@@ -24,16 +24,16 @@ let product = { _id : id}
 
 let colorChoice = document.getElementById('colors')
 
-colorChoice = addEventListener("input", function(event){
+colorChoice.addEventListener("input", function(event){
     let colorOfProduct = event.target.value;
-    product.color = colorOfProduct;
+    product.colors = colorOfProduct;
     
     
 })
 
 let quantityChoice = document.getElementById('quantity')
 
-quantityChoice = addEventListener('input', function(event){
+quantityChoice.addEventListener('input', function(event){
     let quantityOfProduct = event.target.value;
     product.quantity = parseInt (quantityOfProduct);
     console.log(quantityOfProduct)
@@ -70,27 +70,27 @@ function addCart(product){
             foundProduct.quantity = oldQuantity;
             alert(`Le maximum est de 100. Vous avez déjà ${oldQuantity}`);
         }
+        else{
+            alert("La quantité a été modifiée")
+        }
     }
 
     else{
             cart.push(product);
-            
     }
     saveCart(cart); 
 }
-const addToCart = document.getElementById("addToCart")
-
-addToCart.addEventListener("click", () => {
+const addToCart = document.getElementById("addToCart");
+   addToCart.addEventListener("click", () => {
     if(product.quantity > 0 && product.quantity <= 100 && product.colors !== "" && product.colors !== undefined){
         addCart(product);
-        console.log(addToCart)
+        console.log(product)
 
     }
     else{
-        alert("Ta mère")
+        
     }
 });
-
 
 
 
