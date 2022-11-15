@@ -87,9 +87,6 @@ const addToCart = document.getElementById("addToCart");
         console.log(product)
 
     }
-    else{
-        
-    }
 });
 
 
