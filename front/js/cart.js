@@ -3,6 +3,7 @@ let productInLocalStorage = JSON.parse(localStorage.getItem("cart"));
 const container = document.getElementById("cart__items")
 
 
+
 if (productInLocalStorage === null){
    const emptyBasket = `<section id="cart__items"><h2>Le panier est vide<h2></section>`
    container.innerHTML = emptyBasket;
@@ -11,14 +12,16 @@ else{
     let addProduct = [];
 
     for(i = 0; i < productInLocalStorage.length; i++){
+        fetch('http://localhost:3000/api/products')
+        
         addProduct = addProduct + `
         <article class="cart__item" data-id="${productInLocalStorage[i]._id}" data-color="{product-color}">
                 <div class="cart__item__img">
-                  <img src="../images/product01.jpg" alt="Photographie d'un canapé">
+                  <img src="${productInLocalStorage[i].imageUrl}" alt="${productInLocalStorage[i].altText}">
                 </div>
                 <div class="cart__item__content">
                   <div class="cart__item__content__description">
-                    <h2>Nom du produit</h2>
+                    <h2>${productInLocalStorage[i].name}</h2>
                     <p>${productInLocalStorage[i].colors}</p>
                    <p>${productInLocalStorage[i].price}</p>
                   </div>
