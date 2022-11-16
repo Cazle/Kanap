@@ -39,6 +39,10 @@ quantityChoice.addEventListener('input', function(event){
     console.log(quantityOfProduct)
 
 })
+let priceOfProduct = document.getElementById("price");
+product.price = priceOfProduct;
+console.log(priceOfProduct)
+
 
 /*Local Storage */
 
@@ -69,9 +73,6 @@ function addCart(product){
             let oldQuantity = foundProduct.quantity - product.quantity;
             foundProduct.quantity = oldQuantity;
             alert(`Le maximum est de 100. Vous avez déjà ${oldQuantity}`);
-        }
-        else{
-            alert("La quantité a été modifiée")
         }
     }
 
