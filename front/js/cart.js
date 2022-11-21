@@ -23,10 +23,9 @@ productInLocalStorage.forEach((item, i)=> {
                       <p>Qté : </p>
                       <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${productInLocalStorage[i].quantity}">
                     </div>
-                    <button onclick="removeItem(productInLocalStorage, ${i})" id="removeItem-${i}"  class="cart__item__content__settings__delete">
+                    <div class="cart__item__content__settings__delete">
                       <p class="deleteItem">Supprimer</p>
-                    </button>
-                  </div>
+                    </div>
                 </div>
               </article>
       `;
@@ -35,14 +34,19 @@ productInLocalStorage.forEach((item, i)=> {
 
 })
 
-const removeItemFromArray = (arrayItem) => {
-    return arrayItem.slice(1, 3);
+function deleteProduct(event){
+
+  let listOfProduct = event.target.closest('article');
+  let productId = listOfProduct._id;
+  let productColor = listOfProduct.colors;
+
+  let cart = productInLocalStorage();
+  let deleteItem = cart.find(p => p._id === productId && p.colors === productColor)
+  let cartFilter = cart.filter(p => p !== deleteItem)
+
+  listOfProduct.remove();
+  localStorage.setItem('cart',JSON.stringify(cartFilter))
 }
 
-const removeItem = (item, i) => {
-    console.log(item[i]);
-    const arrayItem = [1, 2, 3, 4];
-    console.log(arrayItem);
-    const finalArray = removeItemFromArray(arrayItem);
-    console.log(finalArray);
-}
+
+
