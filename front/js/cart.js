@@ -6,9 +6,9 @@ if (productInLocalStorage === null) {
     container.innerHTML = `<section id="cart__items"><h2>Le panier est vide<h2></section>`
 }
 
-productInLocalStorage.forEach((item, i)=> {
+productInLocalStorage.forEach((color, i, _id)=> {
     const article =`
-        <article class="cart__item" data-id="${productInLocalStorage[i]._id}" data-color="product-color">
+        <article class="cart__item" data-id="{product-_id}" data-color="{product-color}">
                 <div class="cart__item__img">
                   <img src="${productInLocalStorage[i].imageUrl}" alt="${productInLocalStorage[i].altTxt}">
                 </div>
@@ -30,23 +30,47 @@ productInLocalStorage.forEach((item, i)=> {
               </article>
       `;
 
-    container.insertAdjacentHTML('beforeend', article);
+    container.insertAdjacentHTML("afterbegin", article);
 
 })
 
-function deleteProduct(event){
 
-  let listOfProduct = event.target.closest('article');
-  let productId = listOfProduct._id;
-  let productColor = listOfProduct.colors;
 
-  let cart = productInLocalStorage();
-  let deleteItem = cart.find(p => p._id === productId && p.colors === productColor)
-  let cartFilter = cart.filter(p => p !== deleteItem)
+function listOfProductToDelete(){
 
-  listOfProduct.remove();
-  localStorage.setItem('cart',JSON.stringify(cartFilter))
+  const deleteItem = document.querySelectorAll("deleteItem");
+
+  for(buttonDelete of deleteItem){
+
+    buttonDelete.addEventListener("Click", (event) =>{
+
+      const getDom = event.target.closest("article");
+      const getId = getDom.dataset._id;
+      const getColor = getDom.dataset.color;
+      if(window.confirm("Voulez vous supprimer ce produit ?"))
+      deleteEvent(getId, getColor);
+    })
+  }
 }
+
+function deleteEvent (_id, color){
+  let cart = productInLocalStorage();
+
+  for (let i in cart){
+    if(cart[i]._id === _id && cart[i].color === color){
+      cart.splice(i, 1)
+      saveCart(cart)
+      location.reload();
+
+    }
+  }
+}
+
+  
+
+
+
+
 
 
 
