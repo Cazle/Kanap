@@ -1,4 +1,4 @@
-let productInLocalStorage = JSON.parse(localStorage.getItem("cart"));
+const productInLocalStorage = JSON.parse(localStorage.getItem("cart"));
 
 const container = document.getElementById("cart__items")
 
@@ -8,7 +8,7 @@ if (productInLocalStorage === null) {
 
 productInLocalStorage.forEach((color, i, _id)=> {
     const article =`
-        <article class="cart__item" data-id="{product-_id}" data-color="{product-color}">
+        <article class="cart__item" data-id="${productInLocalStorage[i]._id}" data-color="${productInLocalStorage[i].colors}">
                 <div class="cart__item__img">
                   <img src="${productInLocalStorage[i].imageUrl}" alt="${productInLocalStorage[i].altTxt}">
                 </div>
@@ -38,38 +38,32 @@ productInLocalStorage.forEach((color, i, _id)=> {
 
 function listOfProductToDelete(){
 
-  const deleteItem = document.querySelectorAll("deleteItem");
+let deleteButton = document.querySelectorAll("deleteItem");
 
-  for(buttonDelete of deleteItem){
+function deleteItem(e) {
 
-    buttonDelete.addEventListener("Click", (event) =>{
-
-      const getDom = event.target.closest("article");
-      const getId = getDom.dataset._id;
-      const getColor = getDom.dataset.color;
-      if(window.confirm("Voulez vous supprimer ce produit ?"))
-      deleteEvent(getId, getColor);
-    })
-  }
-}
-
-function deleteEvent (_id, color){
-  let cart = productInLocalStorage();
-
-  for (let i in cart){
-    if(cart[i]._id === _id && cart[i].color === color){
-      cart.splice(i, 1)
-      saveCart(cart)
-      location.reload();
-
-    }
-  }
-}
+  const getDom = e.target.closest("article")
+  const getId = getDom.dataset._id;
+  const getColors = getDom.dataset.colors;
 
   
 
+  deleteButton.addEventListner("click", (e) => {
+    
+      let cart = getCart();
+      let productDelete = cart.find(product => product._id === getId && product.colors === getColors)
+      let cartFilter = cart.filter(product => product!== productDelete)
+    for(let i = 0; i > deleteButton.length; i++){
+      deleteButton[i].
+    }
+  })
 
+  getDom.remove();
+  localStorage.setItem('cart', JSON.stringify(cartFilter))
 
+ }
+
+}
 
 
 
