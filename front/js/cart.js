@@ -39,19 +39,19 @@ function removeItem(event){
 
   const deleteItem = document.querySelectorAll("deleteItem")
 
-  const getDom = event.target.closest('article');
-  const getId = getDom.dataset._id;
-  const getColors = getDom.dataset.colors;
+  
+  const getId = productInLocalStorage[i]._id;
+  const getColors =productInLocalStorage[i].colors;
   
 
-  let findCart = cart.find(product => product.getId == getId && product.getColors == getColors)
+  let findCart = cart.find(product => product.getId === getId && product.getColors === getColors)
   let filterCart = cart.filter(filterCart !== findCart)
   
   
   deleteItem.forEach(i = 0, i < deleteItem.length, i++);{
 
      deleteItem.addEventListener("click", (i) => {
-      cart = productInLocalStorage(_id, colors)
+      cart = productInLocalStorage();
       cart.splice(i, 1)
       cart.remove();
       saveCart(JSON.stringify('cart'));
@@ -59,7 +59,45 @@ function removeItem(event){
     })
     
   }
+  removeItem();
 }
+
+
+const Form = {
+   firstName: document.getElementById('firstName').value,
+   lastName: document.getElementById('lastName').value,
+   adress: document.getElementById('address').value,
+   city: document.getElementById('city').value,
+   email: document.getElementById('email').value,
+}
+
+const errorMessage ={
+  firstNameError: document.getElementById('firstNameErrorMsg').value,
+  lastNameError: document.getElementById('lastNameErrorMsg').value,
+  adressError : document.getElementById('adressErrorMsg').value,
+  cityError : document.getElementById('cityErrorMsg').value,
+  emailError : document.getElementById('emailErrorMsg').value,
+
+}
+
+const regex = {
+
+  firstNameAndLastNameRegex: /^[a-zA-Z'_-\s]+$/,
+  adressRegex: /^[a-zA-Z'0-9_-\s]+$/,
+  cityRegex: /^[a-zA-Z'_-\s]+$/,
+  emailRegex: /^[a-zA-Z0-9._]+[@]{1}[a-zA-Z0-9._]+[.]{1}[a-z]{2,10}+$/,
+}
+
+const validFirstName = (inputFirstName) =>{
+
+  
+  
+
+}
+
+  
+
+
 
 
 
