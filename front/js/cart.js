@@ -35,19 +35,19 @@ productInLocalStorage.forEach((color, i)=> {
 
 })
 
-function removeItem(event){
+function removeItem(){
 
   const deleteItem = document.querySelectorAll("deleteItem")
 
-  
+
   const getId = productInLocalStorage[i]._id;
   const getColors =productInLocalStorage[i].colors;
-  
+
 
   let findCart = cart.find(product => product.getId === getId && product.getColors === getColors)
   let filterCart = cart.filter(filterCart !== findCart)
-  
-  
+
+
   deleteItem.forEach(i = 0, i < deleteItem.length, i++);{
 
      deleteItem.addEventListener("click", (i) => {
@@ -55,9 +55,9 @@ function removeItem(event){
       cart.splice(i, 1)
       cart.remove();
       saveCart(JSON.stringify('cart'));
-      
+
     })
-    
+
   }
   removeItem();
 }
@@ -74,7 +74,7 @@ const Form = {
 const errorMessage ={
   firstNameError: document.getElementById('firstNameErrorMsg').value,
   lastNameError: document.getElementById('lastNameErrorMsg').value,
-  adressError : document.getElementById('adressErrorMsg').value,
+  adressError : document.getElementById('addressErrorMsg').value,
   cityError : document.getElementById('cityErrorMsg').value,
   emailError : document.getElementById('emailErrorMsg').value,
 
@@ -85,7 +85,7 @@ const regex = {
   firstNameAndLastNameRegex: /^[a-zA-Z'_-\s]+$/,
   adressRegex: /^[a-zA-Z'0-9_-\s]+$/,
   cityRegex: /^[a-zA-Z'_-\s]+$/,
-  emailRegex: /^[a-zA-Z0-9._]+[@]{1}[a-zA-Z0-9._]+[.]{1}[a-z]{2,10}+$/,
+  emailRegex: /^[a-zA-Z0-9._]+[@]{1}[a-zA-Z0-9._]+[.]{1}[a-z]{2,10}/,
 }
 
 const validFirstName = (inputFirstName) =>{
