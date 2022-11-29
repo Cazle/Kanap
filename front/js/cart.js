@@ -77,40 +77,89 @@ btns.forEach((btn, i) => {
     })
 });
 
-
-const Form = {
-   firstName: document.getElementById('firstName').value,
-   lastName: document.getElementById('lastName').value,
-   adress: document.getElementById('address').value,
-   city: document.getElementById('city').value,
-   email: document.getElementById('email').value,
-}
-
-const errorMessage ={
-  firstNameError: document.getElementById('firstNameErrorMsg').value,
-  lastNameError: document.getElementById('lastNameErrorMsg').value,
-  adressError : document.getElementById('addressErrorMsg').value,
-  cityError : document.getElementById('cityErrorMsg').value,
-  emailError : document.getElementById('emailErrorMsg').value,
-
-}
-
 const regex = {
+    firstNameAndLastNameRegex: /^[a-zA-Z'_\s-]+$/g,
+    addressRegex: /^[a-zA-Z'0-9_-\s]+$/g,
+    cityRegex: /[a-zA-Z'_-\s]+$/g,
+    emailRegex: /^[a-zA-Z0-9._]+[@]{1}[a-zA-Z0-9._]+[.]{1}[a-z]{2,10}/g,
+  }
 
-  firstNameAndLastNameRegex: /^[a-zA-Z'_-\s]+$/,
-  adressRegex: /^[a-zA-Z'0-9_-\s]+$/,
-  cityRegex: /^[a-zA-Z'_-\s]+$/,
-  emailRegex: /^[a-zA-Z0-9._]+[@]{1}[a-zA-Z0-9._]+[.]{1}[a-z]{2,10}/,
+const inputs = document.querySelectorAll('.cart__order__form__question input');
+inputs.forEach(input => {
+    console.log(input)
+    input.addEventListener('input', checkInput);
+
+});
+function checkInput(e){
+    console.log(regex.firstNameAndLastNameRegex)
+    
+    if(e.target.id == "firstName"){
+        if(e.target.value.match(regex.firstNameAndLastNameRegex) === null && e.target.value.length > 0) {
+            e.target.style = "border : 3px solid red";
+            const errorParagraph = document.getElementById("firstNameErrorMsg");
+            errorParagraph.innerHTML = "Prénom incorrect";
+        }
+        else {
+            e.target.style = "border : none";
+            const errorParagraph = document.getElementById("firstNameErrorMsg");
+            errorParagraph.innerHTML = "";
+        } 
+    }
+        
+    if(e.target.id == "lastName"){
+            if(e.target.value.match(regex.firstNameAndLastNameRegex) === null && e.target.value.length > 0){
+                e.target.style = "border : 3px solid red";
+                const errorParagraph = document.getElementById("lastNameErrorMsg");
+                errorParagraph.innerHTML = "Nom incorrect";
+            }
+            else{
+                e.target.style = "border : none";
+                const errorParagraph = document.getElementById("lastNameErrorMsg");
+                errorParagraph.innerHTML = "";
+            }
+    }
+
+    if(e.target.id == "address"){
+        if(e.target.value.match(regex.addressRegex) === null && e.target.value.length > 0){
+            e.target.style = "border : 3px solid red";
+            const errorParagraph = document.getElementById("addressErrorMsg");
+            errorParagraph.innerHTML = "Adresse incorrect";
+        }
+        else{
+            e.target.style = "border : none";
+            const errorParagraph = document.getElementById("addressErrorMsg");
+            errorParagraph.innerHTML = "";
+        }
+     }
+
+
+     if(e.target.id == "city"){
+        if(e.target.value.match(regex.cityRegex) === null && e.target.value.length > 0){
+            e.target.style = "border : 3px solid red";
+            const errorParagraph = document.getElementById("cityErrorMsg");
+            errorParagraph.innerHTML = "Ville incorrect";
+        }
+        else{
+            e.target.style = "border : none";
+            const errorParagraph = document.getElementById("cityErrorMsg");
+            errorParagraph.innerHTML = "";
+        }
+
+
+        if(e.target.id == "email"){
+            if(e.target.value.match(regex.emailRegex) === null && e.target.value.length > 0){
+                e.target.style = "border : 3px solid red";
+                const errorParagraph = document.getElementById("emailErrorMsg");
+                errorParagraph.innerHTML = "Email incorrect";
+            }
+            else{
+                e.target.style = "border : none";
+                const errorParagraph = document.getElementById("emailErrorMsg");
+                errorParagraph.innerHTML = "";
+            }
+    }
 }
-
-const validFirstName = (inputFirstName) =>{
-
-  
-  
-
 }
-
-  
 
 
 
