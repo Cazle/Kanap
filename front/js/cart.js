@@ -11,6 +11,7 @@ if (productInLocalStorage === null) {
     container.innerHTML = `<section id="cart__items"><h2>Le panier est vide<h2></section>`
 }
 
+
 const generateCard = (product) => {
     return `
     <article class="cart__item" data-id="${product._id}" data-color="${product.colors}">
@@ -81,7 +82,7 @@ const regex = {
     firstNameAndLastNameRegex: /^[a-zA-Z'_\s-]+$/g,
     addressRegex: /^[a-zA-Z'0-9_-\s]+$/g,
     cityRegex: /[a-zA-Z'_-\s]+$/g,
-    emailRegex: /^[a-zA-Z0-9._]+[@]{1}[a-zA-Z0-9._]+[.]{1}[a-z]{2,10}/g,
+    emailRegex:/^[a-zA-Z0-9._]+[@]{1}[a-zA-Z0-9._]+[.]{1}[a-z]{2,10}/,
   }
 
 const inputs = document.querySelectorAll('.cart__order__form__question input');
@@ -161,6 +162,17 @@ function checkInput(e){
 }
 }
 
+
+const urlForm = window.location.search;
+
+const urlSearchParamsForm = new URLSearchParams(urlForm);
+
+const formFirstName = urlSearchParamsForm.get('firstName');
+const formLastName = urlSearchParamsForm.get('lastName');
+const formAddress = urlSearchParamsForm.get('address');
+const formCity = urlSearchParamsForm.get('city');
+const formEmail = urlSearchParamsForm.get('email');
+console.log(formFirstName, formLastName, formAddress, formCity, formEmail)
 
 
 
