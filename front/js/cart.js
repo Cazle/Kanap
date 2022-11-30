@@ -179,10 +179,12 @@ console.log(getAllInfos)
 
 
 const submitButton = document.querySelectorAll("cart__order__form__submit submit");
-submitButton.addEventListener('click', (event) =>{
+const sendInfos = ('click', (event) =>{
+
+    sendInfos.addEventListener("submit")
 
     let LocalStorageForInfos = localStorage.setItem('cart', JSON.stringify(getAllInfos))
-    let pushInfos = LocalStorageForInfos.push('cart')
+    LocalStorageForInfos = LocalStorageForInfos.push('cart')
 })
 
 
