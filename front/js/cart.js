@@ -167,12 +167,27 @@ const urlForm = window.location.search;
 
 const urlSearchParamsForm = new URLSearchParams(urlForm);
 
-const formFirstName = urlSearchParamsForm.get('firstName');
-const formLastName = urlSearchParamsForm.get('lastName');
-const formAddress = urlSearchParamsForm.get('address');
-const formCity = urlSearchParamsForm.get('city');
-const formEmail = urlSearchParamsForm.get('email');
-console.log(formFirstName, formLastName, formAddress, formCity, formEmail)
+const getAllInfos = {
+ FirstName : urlSearchParamsForm.get('firstName'),
+ LastName : urlSearchParamsForm.get('lastName'),
+ Address : urlSearchParamsForm.get('address'),
+ City : urlSearchParamsForm.get('city'),
+ Email : urlSearchParamsForm.get('email'),
+}
+
+console.log(getAllInfos)
+
+
+const submitButton = document.querySelectorAll("cart__order__form__submit submit");
+submitButton.addEventListener('click', (event) =>{
+
+    let LocalStorageForInfos = localStorage.setItem('cart', JSON.stringify(getAllInfos))
+    let pushInfos = LocalStorageForInfos.push('cart')
+})
+
+
+
+
 
 
 
