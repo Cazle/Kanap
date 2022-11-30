@@ -167,25 +167,26 @@ const urlForm = window.location.search;
 
 const urlSearchParamsForm = new URLSearchParams(urlForm);
 
-const getAllInfos = {
- FirstName : urlSearchParamsForm.get('firstName'),
- LastName : urlSearchParamsForm.get('lastName'),
- Address : urlSearchParamsForm.get('address'),
- City : urlSearchParamsForm.get('city'),
- Email : urlSearchParamsForm.get('email'),
-}
+ let getAllInfos = [
+ FirstName = urlSearchParamsForm.get('firstName'),
+ LastName = urlSearchParamsForm.get('lastName'),
+ Address = urlSearchParamsForm.get('address'),
+ City = urlSearchParamsForm.get('city'),
+ Email = urlSearchParamsForm.get('email'),
+]
 
 console.log(getAllInfos)
 
+let cartInfos = [];
 
-const submitButton = document.querySelectorAll("cart__order__form__submit submit");
-const sendInfos = ('click', (event) =>{
+const submitButton = document.getElementById("order");
 
-    sendInfos.addEventListener("submit")
+submitButton.addEventListener('click', () =>{
 
-    let LocalStorageForInfos = localStorage.setItem('cart', JSON.stringify(getAllInfos))
-    LocalStorageForInfos = LocalStorageForInfos.push('cart')
-})
+    getAllInfos = [];
+    getAllInfos = localStorage.setItem('infos', JSON.stringify('infos'))
+    window.location.href = "http://127.0.0.1:5500/front/html/confirmation.html"
+}) 
 
 
 
