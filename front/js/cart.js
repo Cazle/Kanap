@@ -167,25 +167,30 @@ const urlForm = window.location.search;
 
 const urlSearchParamsForm = new URLSearchParams(urlForm);
 
- let getAllInfos = [
- FirstName = urlSearchParamsForm.get('firstName'),
- LastName = urlSearchParamsForm.get('lastName'),
- Address = urlSearchParamsForm.get('address'),
- City = urlSearchParamsForm.get('city'),
- Email = urlSearchParamsForm.get('email'),
-]
+ 
 
-console.log(getAllInfos)
+
 
 let cartInfos = [];
 
 const submitButton = document.getElementById("order");
 
 submitButton.addEventListener('click', () =>{
-
-    getAllInfos = [];
-    getAllInfos = localStorage.setItem('infos', JSON.stringify('infos'))
-    window.location.href = "http://127.0.0.1:5500/front/html/confirmation.html"
+    
+    let getAllInfos = [
+        FirstName = document.getElementById('firstName').value,
+        LastName = document.getElementById('lastName').value,
+        Address = document.getElementById('address').value,
+        City = document.getElementById('city').value,
+        Email = document.getElementById('email').value,
+    ]
+    // ajouter fonction checking
+    
+    localStorage.setItem('info', JSON.stringify(getAllInfos));
+ 
+    console.log(getAllInfos)
+    console.log(submitButton)
+    
 }) 
 
 
