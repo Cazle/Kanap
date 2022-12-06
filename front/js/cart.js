@@ -1,4 +1,5 @@
 const productInLocalStorage = JSON.parse(localStorage.getItem("cart"));
+let products = [];
 
 const container = document.getElementById("cart__items")
 const quantity = document.getElementById('totalQuantity');
@@ -175,9 +176,9 @@ submitButton.addEventListener('click', (e) => {
     }
 localStorage.setItem('info', JSON.stringify(form));
    
-   const products = [productInLocalStorage];
-   products.find(productInLocalStorage => productInLocalStorage._id)
-   console.log(products)
+   let products = [productInLocalStorage];
+   
+   
    
    const sendToServer = {
 
@@ -190,7 +191,9 @@ localStorage.setItem('info', JSON.stringify(form));
        },
 
        products,
+       
    }
+   console.log(products)
    console.log(sendToServer)
 
     
@@ -199,10 +202,10 @@ localStorage.setItem('info', JSON.stringify(form));
 
         const fetchInfos = {
             method: "POST",
-            body: JSON.stringify(sendToServer),
+            body: JSON.stringify({sendToServer}),
             headers: {
                 Accept: "application/json",
-                "Content-Type": "application/json",
+                "Content-Type": "application/json",          
     },
 };
 
@@ -210,6 +213,9 @@ localStorage.setItem('info', JSON.stringify(form));
         .then((response) => response.json())
         .then ((data) => {
             localStorage.setItem("orderId", data.orderId);
+            console.log('data')
+            console.log(data)
+            
 
 })
 });  
