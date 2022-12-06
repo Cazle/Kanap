@@ -163,24 +163,45 @@ function checkInput(e) {
 const submitButton = document.getElementById("order");
 
 
-submitButton.addEventListener('click', () => {
+submitButton.addEventListener('click', (e) => {
+    e.preventDefault()
 
-    let getAllInfos = {
+    let form = {
         firstName: document.getElementById('firstName').value,
         lastName: document.getElementById('lastName').value,
         address: document.getElementById('address').value,
         city: document.getElementById('city').value,
         email: document.getElementById('email').value
     }
+localStorage.setItem('info', JSON.stringify(form));
+   
+   const products = [productInLocalStorage];
+   products.find(productInLocalStorage => productInLocalStorage._id)
+   console.log(products)
+   
+   const sendToServer = {
 
-    localStorage.setItem('info', JSON.stringify(getAllInfos));
+       contact : {
+        firstName: firstName.value,
+        lastName: lastName.value,
+        address: address.value,
+        city: city.value,
+        email: email.value,
+       },
+
+       products,
+   }
+   console.log(sendToServer)
+
+    
         
  
 
         const fetchInfos = {
             method: "POST",
-            body: JSON.stringify(getAllInfos, productInLocalStorage),
+            body: JSON.stringify(sendToServer),
             headers: {
+                Accept: "application/json",
                 "Content-Type": "application/json",
     },
 };
@@ -190,9 +211,6 @@ submitButton.addEventListener('click', () => {
         .then ((data) => {
             localStorage.setItem("orderId", data.orderId);
 
-    if(checkInput()){
-        document.location.href = `confiramtion.html`
-    }
 })
 });  
 
