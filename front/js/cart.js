@@ -159,11 +159,6 @@ function checkInput(e) {
 
 }
 
-const urlForm = window.location.search;
-
-const urlSearchParamsForm = new URLSearchParams(urlForm);
-
-let cartInfos = [];
 
 const submitButton = document.getElementById("order");
 
@@ -179,32 +174,28 @@ submitButton.addEventListener('click', () => {
     }
 
     localStorage.setItem('info', JSON.stringify(getAllInfos));
-    
-    const sendToServer = {
-    getAllInfos,
-    productInLocalStorage,
+        
+ 
+
+        const fetchInfos = {
+            method: "POST",
+            body: JSON.stringify(getAllInfos, productInLocalStorage),
+            headers: {
+                "Content-Type": "application/json",
+    },
 };
 
-const send = fetch("http://localhost:3000/api/products" , {
-  method: "POST",
-  body: JSON.stringify(sendToServer),
-  headers: {
-    "Content-Type" : "back/server.js"
-  }
+        fetch("http://localhost:3000/api/products/order", fetchInfos)
+        .then((response) => response.json())
+        .then ((data) => {
+            localStorage.setItem("orderId", data.orderId);
+
+    if(checkInput()){
+        document.location.href = `confiramtion.html`
+    }
 })
+});  
 
-   
-
-   console.log(sendToServer)
-
-
-
-}) 
-
-
-console.log('sendToServer')
-   
-   
 
 
 
