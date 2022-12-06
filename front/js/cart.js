@@ -6,6 +6,7 @@ const price = document.getElementById('totalPrice');
 
 let globalQuantity = 0;
 let globalPrice = 0;
+let errors = 0;
 
 if (productInLocalStorage === null) {
     container.innerHTML = `<section id="cart__items"><h2>Le panier est vide<h2></section>`
@@ -82,120 +83,128 @@ const regex = {
     firstNameAndLastNameRegex: /^[a-zA-Z'_\s-]+$/g,
     addressRegex: /^[a-zA-Z'0-9_-\s]+$/g,
     cityRegex: /[a-zA-Z'_-\s]+$/g,
-    emailRegex:/^[a-zA-Z0-9._]+[@]{1}[a-zA-Z0-9._]+[.]{1}[a-z]{2,10}/,
-  }
+    emailRegex: /^[a-zA-Z0-9._]+[@]{1}[a-zA-Z0-9._]+[.]{1}[a-z]{2,10}/,
+}
 
 const inputs = document.querySelectorAll('.cart__order__form__question input');
 inputs.forEach(input => {
     console.log(input)
     input.addEventListener('input', checkInput);
-
 });
-function checkInput(e){
-    console.log(regex.firstNameAndLastNameRegex)
-    
-    if(e.target.id == "firstName"){
-        if(e.target.value.match(regex.firstNameAndLastNameRegex) === null && e.target.value.length > 0) {
-            e.target.style = "border : 3px solid red";
-            const errorParagraph = document.getElementById("firstNameErrorMsg");
-            errorParagraph.innerHTML = "Prénom incorrect";
-        }
-        else {
-            e.target.style = "border : none";
-            const errorParagraph = document.getElementById("firstNameErrorMsg");
-            errorParagraph.innerHTML = "";
-        } 
-    }
-        
-    if(e.target.id == "lastName"){
-            if(e.target.value.match(regex.firstNameAndLastNameRegex) === null && e.target.value.length > 0){
-                e.target.style = "border : 3px solid red";
-                const errorParagraph = document.getElementById("lastNameErrorMsg");
-                errorParagraph.innerHTML = "Nom incorrect";
-            }
-            else{
-                e.target.style = "border : none";
-                const errorParagraph = document.getElementById("lastNameErrorMsg");
-                errorParagraph.innerHTML = "";
-            }
-    }
 
-    if(e.target.id == "address"){
-        if(e.target.value.match(regex.addressRegex) === null && e.target.value.length > 0){
-            e.target.style = "border : 3px solid red";
-            const errorParagraph = document.getElementById("addressErrorMsg");
-            errorParagraph.innerHTML = "Adresse incorrect";
-        }
-        else{
-            e.target.style = "border : none";
-            const errorParagraph = document.getElementById("addressErrorMsg");
-            errorParagraph.innerHTML = "";
-        }
-     }
-
-
-     if(e.target.id == "city"){
-        if(e.target.value.match(regex.cityRegex) === null && e.target.value.length > 0){
-            e.target.style = "border : 3px solid red";
-            const errorParagraph = document.getElementById("cityErrorMsg");
-            errorParagraph.innerHTML = "Ville incorrect";
-        }
-        else{
-            e.target.style = "border : none";
-            const errorParagraph = document.getElementById("cityErrorMsg");
-            errorParagraph.innerHTML = "";
-        }
-
-
-        if(e.target.id == "email"){
-            if(e.target.value.match(regex.emailRegex) === null && e.target.value.length > 0){
-                e.target.style = "border : 3px solid red";
-                const errorParagraph = document.getElementById("emailErrorMsg");
-                errorParagraph.innerHTML = "Email incorrect";
-            }
-            else{
-                e.target.style = "border : none";
-                const errorParagraph = document.getElementById("emailErrorMsg");
-                errorParagraph.innerHTML = "";
-            }
-    }
-}
+/**
+ * Fonction de gestion global des erreurs
+ *
+ * @param key {string} id de l'ancre d'erreur
+ * @param event {Event} Element cible de l'input
+ * @param message {string} message d'erreur
+ * @param condition {boolean} condition d'affichage de lerreur
+ */
+const stateError = (key, event, message, condition) => {
+    event.target.style = condition ? "border : 3px solid red" : '';
+    const errorParagraph = document.getElementById(key);
+    errorParagraph.innerHTML = condition ? `${message}` : '';
+    errors = condition ? 1 : 0;
 }
 
+const firstNameAndLastNameManager = (key, e, message) => {
+    const condition = e.target.value.match(regex.firstNameAndLastNameRegex) === null && e.target.value.length > 0;
+    stateError(key, e, message, condition);
+}
+
+const addressManager = (key, e, message) => {
+    const condition = e.target.value.match(regex.addressRegex) === null && e.target.value.length > 0;
+    stateError(key, e, message, condition);
+}
+
+const cityManager = (key, e, message) => {
+    const condition = e.target.value.match(regex.cityRegex) === null && e.target.value.length > 0;
+    stateError(key, e, message, condition);
+}
+
+const emailManager = (key, e, message) => {
+    const condition = e.target.value.match(regex.emailRegex) === null && e.target.value.length > 0;
+    stateError(key, e, message, condition);
+}
+
+function checkInput(e) {
+
+    switch (e.target.id) {
+        case 'firstName':
+            firstNameAndLastNameManager('firstNameErrorMsg', e, 'Prénom incorrect')
+            break;
+
+        case 'lastName':
+            firstNameAndLastNameManager('lastNameErrorMsg', e, 'Nom incorrect')
+            break;
+
+        case 'address':
+            addressManager('addressErrorMsg', e, 'Adresse incorrect');
+            break;
+
+        case 'city':
+            cityManager('cityErrorMsg', e, 'Ville incorrect');
+            break;
+
+        case 'email':
+            emailManager('emailErrorMsg', e, 'Email incorrect');
+            break;
+    }
+
+    if (errors === 1) {
+        submitButton.setAttribute('disabled', '');
+    } else {
+        submitButton.removeAttribute('disabled');
+    }
+
+}
 
 const urlForm = window.location.search;
 
 const urlSearchParamsForm = new URLSearchParams(urlForm);
 
- 
-
-
-
 let cartInfos = [];
 
 const submitButton = document.getElementById("order");
 
-submitButton.addEventListener('click', () =>{
-    
-    let getAllInfos = [
-        FirstName = document.getElementById('firstName').value,
-        LastName = document.getElementById('lastName').value,
-        Address = document.getElementById('address').value,
-        City = document.getElementById('city').value,
-        Email = document.getElementById('email').value,
-    ]
-    // ajouter fonction checking
-    
+
+submitButton.addEventListener('click', () => {
+
+    let getAllInfos = {
+        firstName: document.getElementById('firstName').value,
+        lastName: document.getElementById('lastName').value,
+        address: document.getElementById('address').value,
+        city: document.getElementById('city').value,
+        email: document.getElementById('email').value
+    }
+
     localStorage.setItem('info', JSON.stringify(getAllInfos));
- 
-    console.log(getAllInfos)
-    console.log(submitButton)
     
+    const sendToServer = {
+    getAllInfos,
+    productInLocalStorage,
+};
+
+const send = fetch("http://localhost:3000/api/products" , {
+  method: "POST",
+  body: JSON.stringify(sendToServer),
+  headers: {
+    "Content-Type" : "back/server.js"
+  }
+})
+
+   
+
+   console.log(sendToServer)
+
+
+
 }) 
 
 
-
-
+console.log('sendToServer')
+   
+   
 
 
 
