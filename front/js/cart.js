@@ -13,7 +13,6 @@ if (productInLocalStorage === null) {
     container.innerHTML = `<section id="cart__items"><h2>Le panier est vide<h2></section>`
 }
 
-
 const generateCard = (product) => {
     return `
     <article class="cart__item" data-id="${product._id}" data-color="${product.colors}">
@@ -174,59 +173,35 @@ submitButton.addEventListener('click', (e) => {
         city: document.getElementById('city').value,
         email: document.getElementById('email').value
     }
-localStorage.setItem('info', JSON.stringify(form));
-   
-   let products = [productInLocalStorage];
-   
-   
-   
-   const sendToServer = {
 
-       contact : {
-        firstName: firstName.value,
-        lastName: lastName.value,
-        address: address.value,
-        city: city.value,
-        email: email.value,
-       },
+    const products = productInLocalStorage.map((product) => product._id);
 
-       products,
-       
-   }
-   console.log(products)
-   console.log(sendToServer)
+    const sendToServer = {
+        contact: {
+            firstName: firstName.value,
+            lastName: lastName.value,
+            address: address.value,
+            city: city.value,
+            email: email.value,
+        },
+        products,
+    }
 
-    
-        
- 
+    const fetchInfos = {
+        method: "POST",
+        body: JSON.stringify(sendToServer),
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+    };
 
-        const fetchInfos = {
-            method: "POST",
-            body: JSON.stringify({sendToServer}),
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",          
-    },
-};
-
-        fetch("http://localhost:3000/api/products/order", fetchInfos)
+    fetch("http://localhost:3000/api/products/order", fetchInfos)
         .then((response) => response.json())
-        .then ((data) => {
-            localStorage.setItem("orderId", data.orderId);
-            console.log('data')
-            console.log(data)
-            
-
-})
+        .then((data) => window.location.href = `confirmation.html?orderId=${data.orderId}`);
 });  
 
 
-
-
-
-     
-      
-     
       
       
       
