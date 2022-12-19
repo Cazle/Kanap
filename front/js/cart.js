@@ -1,6 +1,8 @@
+/* On recupère notre localstorage et on fait une variable products */
 const productInLocalStorage = JSON.parse(localStorage.getItem("cart"));
 let products = [];
 
+/* constantes et variables nécessaire à notre code */
 const container = document.getElementById("cart__items")
 const quantity = document.getElementById('totalQuantity');
 const price = document.getElementById('totalPrice');
@@ -9,10 +11,12 @@ let globalQuantity = 0;
 let globalPrice = 0;
 let errors = 0;
 
+/* Affichage d'un message si le panier est vide*/
 if (productInLocalStorage === null) {
     container.innerHTML = `<section id="cart__items"><h2>Le panier est vide<h2></section>`
 }
 
+/* Création de notre produit avec du HTML */
 const generateCard = (product) => {
     return `
     <article class="cart__item" data-id="${product._id}" data-color="${product.colors}">
@@ -47,7 +51,7 @@ const generateCard = (product) => {
     </article>
     `
 };
-
+/* Gestion des quantités et du prix*/
 productInLocalStorage.forEach((product) => {
     const article = generateCard(product);
 
@@ -70,7 +74,7 @@ quantities.forEach((quantity, i) => {
         window.location.reload();
     })
 })
-
+/* Pour supprimer un produit du panier */
 btns.forEach((btn, i) => {
     btn.addEventListener('click', (event) => {
         productInLocalStorage.splice(i, 1);
@@ -79,6 +83,7 @@ btns.forEach((btn, i) => {
     })
 });
 
+/*Déclaration de mes regex pour mes inputs formulaire*/
 const regex = {
     firstNameAndLastNameRegex: /^[a-zA-Z'_\s-]+$/g,
     addressRegex: /^[a-zA-Z'0-9_-\s]+$/g,
@@ -159,9 +164,8 @@ function checkInput(e) {
 
 }
 
-
+/* Fonction pour envoyer les infos au serveur*/
 const submitButton = document.getElementById("order");
-
 
 submitButton.addEventListener('click', (e) => {
     e.preventDefault()
@@ -199,7 +203,7 @@ submitButton.addEventListener('click', (e) => {
     fetch("http://localhost:3000/api/products/order", fetchInfos)
         .then((response) => response.json())
         .then((data) => window.location.href = `confirmation.html?orderId=${data.orderId}`);
-});  
+});  ;  
 
 
       

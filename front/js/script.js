@@ -2,7 +2,7 @@
 Insertion produits page d'accueil
 */
 
-
+/*Récupération des infos produits avec un fetch*/
 fetch("http://localhost:3000/api/products")
     
     .then(data => data.json())
@@ -21,7 +21,7 @@ fetch("http://localhost:3000/api/products")
         }
     })
     
-    
+    /* Fonction d'erreur en cas de problème avec l'API, ou si le serveur ne se connecte pas*/
     .catch( function(err) {
         let error = document.querySelector("main");
         error.innerHTML = `<h2 style="color:red;">Une erreur est survenue !</h2>`
